@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +19,20 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex flex-col gap-0 leading-tight">
-            <Link href="/" className="text-2xl font-bold text-primary">
-              KICE
-            </Link>
-            <p className="text-sm m-0">
-              Katta institute of Competitive Examinations
-            </p>
+          <div className="flex flex-row gap-3">
+            <Image
+              src="/images/logo.png"
+              alt="KICE Logo"
+              width={50}
+              height={40}
+              className="mb-1 rounded-full"
+            />
+            <div className="flex flex-col gap-0 leading-tight">
+              <Link href="/" className="text-2xl font-bold text-primary">
+                KICE
+              </Link>
+              <p className="text-sm m-0">KICE ENGINEERING ACADEMY</p>
+            </div>
           </div>
 
           {/* Desktop Menu */}
@@ -35,12 +43,12 @@ export function Navigation() {
             >
               About
             </Link>
-            <Link
+            {/* <Link
               href="/#trainers"
               className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
             >
               Trainers
-            </Link>
+            </Link> */}
             <Link
               href="/#testimonials"
               className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
@@ -70,24 +78,28 @@ export function Navigation() {
           <div className="md:hidden pb-4 flex flex-col gap-4">
             <Link
               href="/#about"
+              onClick={() => setIsOpen(false)}
               className="text-foreground hover:text-primary text-left py-2 cursor-pointer"
             >
               About
             </Link>
-            <Link
+            {/* <Link
               href="/#trainers"
+              onClick={() => setIsOpen(false)}
               className="text-foreground hover:text-primary text-left py-2 cursor-pointer"
             >
               Trainers
-            </Link>
+            </Link> */}
             <Link
               href="/#testimonials"
+              onClick={() => setIsOpen(false)}
               className="text-foreground hover:text-primary text-left py-2 cursor-pointer"
             >
               Testimonials
             </Link>
             <Link
               href="/contact"
+              onClick={() => setIsOpen(false)}
               className="px-6 py-2 bg-primary text-primary-foreground rounded-lg text-left font-medium cursor-pointer"
             >
               Contact
