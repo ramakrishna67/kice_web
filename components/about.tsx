@@ -102,12 +102,7 @@ export function About() {
             </h5>
             <div className="scrollbar-hide overflow-y-auto mb-3 h-full flex-1">
               <p className="text-md text-muted-foreground leading-relaxed text-justify">
-                {visionPoints.map((point, index) => (
-                  <span key={index} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 shrink-0 text-green-600" />
-                    <span>{point}</span>
-                  </span>
-                ))}
+                To become a premier institute for GATE preparation, recognized for academic excellence and innovative teaching methodologies, consistently producing top GATE rankers who secure admissions into prestigious postgraduate programs at institutions of national repute and achieve successful placements in Public Sector Undertakings (PSUs), thereby contributing to the nation’s technological advancement.
               </p>
             </div>
           </div>
