@@ -30,17 +30,32 @@ export function About() {
       desc: "Dedicated sessions to resolve all your doubts.",
     },
   ];
+  const visionPoints = [
+    "To provide strong conceptual clarity and deliver high-quality teaching through experienced and dedicated faculty",
+    "To integrate offline and online learning for maximum flexibility and effectiveness",
+    "To guide and mentor students to achieve top ranks in GATE and other competitive examinations",
+    "To enable students to secure placements in Public Sector Undertakings (PSUs) and other esteemed organizations"
+  ];
+  const missionPoints = [
+    "To provide strong conceptual clarity in core engineering subjects",
+    "To deliver high-quality teaching through experienced and dedicated faculty",
+    "To create a student-centric learning environment that nurtures analytical and problem-solving skills",
+    "To integrate offline and online learning for maximum flexibility and effectiveness",
+    "To guide and mentor students to achieve top ranks in GATE and other competitive examinations",
+    "To enable students to secure placements in Public Sector Undertakings (PSUs) and other esteemed organizations",
+    "To instil confidence, discipline, and a passion for continuous learning among students",
+  ]
 
   return (
     <section id="about" className="py-10 min-h-full bg-white">
-      <div className="max-w-7xl mx-auto px-4 mt-18 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:mt-18 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div>
             <h2 className="text-4xl font-bold mb-6 text-primary">
-              About KICE Academy
+              About KICE
             </h2>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <div className="text-lg text-muted-foreground mb-6 leading-relaxed text-justify">
               KICE (KICE Engineering Academy), established in 2025, is dedicated
               to imparting high-quality conceptual education for GATE aspirants
               in Mechanical Engineering and allied disciplines. The institute
@@ -53,7 +68,7 @@ export function About() {
               classes are conducted intensively on Sundays and public holidays &
               Online sessions are held on weekdays for continuous engagement and
               practice.
-            </p>
+            </div>
 
             {/* <div className="space-y-3">
               {features.map((feature, index) => (
@@ -81,39 +96,35 @@ export function About() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-10">
-          <div className="shadow-lg bg-gray-200 h-72 p-4 rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
-            <h5 className="text-xl font-semibold mb-4 text-primary">
+          <div className="shadow-lg bg-gray-200 h-72 p-4 rounded-2xl flex flex-col border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
+            <h5 className="text-xl font-semibold pb-2 text-primary">
               Our Vision
             </h5>
-            <p className="text-md text-muted-foreground mb-8 leading-relaxed">
-              To become a premier institute for GATE preparation, recognized for
-              academic excellence and innovative teaching methodologies,
-              consistently producing top GATE rankers who secure admissions into
-              prestigious postgraduate programs at institutions of national
-              repute and achieve successful placements in Public Sector
-              Undertakings (PSUs), thereby contributing to the nation&apos;s
-              technological advancement.
-            </p>
+            <div className="scrollbar-hide overflow-y-auto mb-3 h-full flex-1">
+              <p className="text-md text-muted-foreground leading-relaxed text-justify">
+                {visionPoints.map((point, index) => (
+                  <span key={index} className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 shrink-0 text-green-600" />
+                    <span>{point}</span>
+                  </span>
+                ))}
+              </p>
+            </div>
           </div>
-          <div className="shadow-lg bg-gray-200 h-72 p-4 overflow-y-auto scrollbar-hide rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
-            <h5 className="text-xl font-semibold mb-4 text-primary">
+          <div className="shadow-lg bg-gray-200 h-72 p-4 overflow-y-auto scrollbar-hide flex flex-col rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
+            <h5 className="text-xl font-semibold pb-2 text-primary">
               Our Mission
             </h5>
-            <p className="text-md text-muted-foreground mb-8 leading-relaxed">
-              • To provide strong conceptual clarity in core engineering
-              subjects <br />
-              • To deliver high-quality teaching through experienced and
-              dedicated faculty <br />
-              • To create a student-centric learning environment that nurtures
-              analytical and problem-solving skills <br />
-              • To integrate offline and online learning for maximum flexibility
-              and effectiveness <br />
-              • To guide and mentor students to achieve top ranks in GATE and
-              other competitive examinations <br />• To enable students to
-              secure placements in Public Sector Undertakings (PSUs) and other
-              esteemed organizations • To instil confidence, discipline, and a
-              passion for continuous learning among students
-            </p>
+            <div className="overflow-y-auto scrollbar-hide mb-3 flex-1">
+              <p className="text-md text-muted-foreground leading-relaxed text-justify">
+                {missionPoints.map((point, index) => (
+                  <span key={index} className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 shrink-0 text-green-600" />
+                    <span>{point}</span>
+                  </span>
+                ))}
+              </p>
+            </div>
           </div>
           <div className="shadow-lg bg-gray-200 h-72 p-4 rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
             <h5 className="text-xl font-semibold mb-4 text-primary">
