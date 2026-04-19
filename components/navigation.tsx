@@ -89,11 +89,11 @@ export function Navigation() {
             <div className="flex flex-col gap-0 pt-2 md:pt-0 leading-tight">
               <Link
                 href="/"
-                className="md:text-3xl text-xl font-bold text-primary"
+                className="sm:text-3xl text-md font-bold text-primary"
               >
                 KICE ENGINEERING ACADEMY
               </Link>
-              <p className="text-xs md:text-sm m-0">
+              <p className="text-xs sm:text-sm m-0">
                 KATTA INSTITUTE OF COMPETITIVE EXAMINATIONS
               </p>
             </div>

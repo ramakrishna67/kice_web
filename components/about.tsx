@@ -32,7 +32,7 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-20 min-h-full bg-white">
+    <section id="about" className="py-10 min-h-full bg-white">
       <div className="max-w-7xl mx-auto px-4 mt-18 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -41,16 +41,18 @@ export function About() {
               About KICE Academy
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              We offer comprehensive coaching programs for Mechanical
-              Engineering (ME), Engineering Sciences (XE), and Production
-              Engineering (PI), designed to help you succeed in GATE 2027 and
-              2028.
-            </p>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Our classes are conducted in a hybrid format, combining the
-              flexibility of online learning with the effectiveness of offline
-              sessions held on Sundays and holidays. The batch is scheduled to
-              commence tentatively from May 1st, 2026.
+              KICE (KICE Engineering Academy), established in 2025, is dedicated
+              to imparting high-quality conceptual education for GATE aspirants
+              in Mechanical Engineering and allied disciplines. The institute
+              focuses on delivering structured, in-depth learning through
+              experienced educators who are committed to academic excellence and
+              student success. Our programs are carefully designed to build
+              strong fundamentals, enhance problem-solving skills, and equip
+              students with the right strategies to excel in GATE examinations.
+              To ensure flexibility and effectiveness in learning, Offline
+              classes are conducted intensively on Sundays and public holidays &
+              Online sessions are held on weekdays for continuous engagement and
+              practice.
             </p>
 
             {/* <div className="space-y-3">
@@ -68,7 +70,7 @@ export function About() {
             {/* <div className="text-center"> */}
             {/* <div className="w-32 h-32 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center"> */}
             <Image
-              src="/images/ranks.png"
+              src="/images/paper.jpeg"
               alt="Institute"
               fill
               className="object-contain"
@@ -78,7 +80,53 @@ export function About() {
             {/* </div> */}
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 text-center pt-34">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-10">
+          <div className="shadow-lg bg-gray-200 h-72 p-4 rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
+            <h5 className="text-xl font-semibold mb-4 text-primary">
+              Our Vision
+            </h5>
+            <p className="text-md text-muted-foreground mb-8 leading-relaxed">
+              To become a premier institute for GATE preparation, recognized for
+              academic excellence and innovative teaching methodologies,
+              consistently producing top GATE rankers who secure admissions into
+              prestigious postgraduate programs at institutions of national
+              repute and achieve successful placements in Public Sector
+              Undertakings (PSUs), thereby contributing to the nation&apos;s
+              technological advancement.
+            </p>
+          </div>
+          <div className="shadow-lg bg-gray-200 h-72 p-4 overflow-y-auto scrollbar-hide rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
+            <h5 className="text-xl font-semibold mb-4 text-primary">
+              Our Mission
+            </h5>
+            <p className="text-md text-muted-foreground mb-8 leading-relaxed">
+              • To provide strong conceptual clarity in core engineering
+              subjects <br />
+              • To deliver high-quality teaching through experienced and
+              dedicated faculty <br />
+              • To create a student-centric learning environment that nurtures
+              analytical and problem-solving skills <br />
+              • To integrate offline and online learning for maximum flexibility
+              and effectiveness <br />
+              • To guide and mentor students to achieve top ranks in GATE and
+              other competitive examinations <br />• To enable students to
+              secure placements in Public Sector Undertakings (PSUs) and other
+              esteemed organizations • To instil confidence, discipline, and a
+              passion for continuous learning among students
+            </p>
+          </div>
+          <div className="shadow-lg bg-gray-200 h-72 p-4 rounded-2xl border border-border relative z-10 hover:-translate-y-2 transition-all transform duration-300">
+            <h5 className="text-xl font-semibold mb-4 text-primary">
+              Courses Offered
+            </h5>
+            <p className="text-md text-muted-foreground mb-8 leading-relaxed">
+              Mechanical Engineering (ME) <br />
+              Engineering Sciences (XE) <br />
+              Production Engineering (PI)
+            </p>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 text-center pt-28">
           <h2 className="text-4xl font-bold mb-12 text-primary">
             Highlights of Our GATE Program
           </h2>
