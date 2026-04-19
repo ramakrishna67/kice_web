@@ -9,6 +9,7 @@ export function Poster() {
         src="/images/poster.png"
         alt="Hero Background"
         fill
+        loading="eager"
         className="object-contain width-auto"
       />
     </div>

@@ -1,23 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-linear-to-br from-primary via-primary to-primary/80 text-white overflow-hidden">
+    <section className="relative min-h-full flex items-center justify-center bg-primary/20 text-black overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gray-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl"></div>
         <div className="absolute -bottom-8 left-20 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-17 text-center">
         <div className="mb-8">
+          <Image
+            src="/images/logo.png"
+            alt="KICE Logo"
+            width={200}
+            height={100}
+            className="mb-1 height-auto mx-auto"
+          />
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-balance">
-            Transform Your Career With Expert Coaching
+            Transform Your Career With Expert GATE Coaching
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed text-balance">
+          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed text-balance">
             Join <b>KICE</b> to Improve Knowledge and Enhance Confidence.
           </p>
         </div>

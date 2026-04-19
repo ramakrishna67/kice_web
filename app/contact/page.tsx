@@ -3,14 +3,17 @@
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { useState } from "react";
+import { Brain } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    subject: "",
-    message: "",
+    college: "",
+    year: "",
+    branch: "",
+    // message: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -46,8 +49,10 @@ export default function ContactPage() {
           name: "",
           email: "",
           phone: "",
-          subject: "",
-          message: "",
+          college: "",
+          year: "",
+          branch: "",
+          // message: "",
         });
       } else {
         alert("Failed to send message");
@@ -62,12 +67,12 @@ export default function ContactPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-primary text-white py-16">
+      <section className="bg-primary/20 text-primary py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto">
-            Have questions? We&apos;d love to hear from you. Send us a message
-            and we&apos;ll respond as soon as possible.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Fill in your details and our team will contact you shortly with
+            complete information about our GATE coaching programs
           </p>
         </div>
       </section>
@@ -140,6 +145,7 @@ export default function ContactPage() {
                     type="tel"
                     id="phone"
                     name="phone"
+                    required
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
@@ -147,33 +153,79 @@ export default function ContactPage() {
                   />
                 </div>
 
-                {/* Subject */}
-                {/* <div>
+                {/* College */}
+                <div>
                   <label
-                    htmlFor="subject"
+                    htmlFor="college"
                     className="block text-sm font-semibold text-foreground mb-2"
                   >
-                    Subject
+                    College
+                  </label>
+                  <input
+                    type="text"
+                    id="college"
+                    name="college"
+                    value={formData.college}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                    placeholder="Enter your college name"
+                  />
+                </div>
+
+                {/* Year of Study */}
+                <div>
+                  <label
+                    htmlFor="year"
+                    className="block text-sm font-semibold text-foreground mb-2"
+                  >
+                    Year of Study
                   </label>
                   <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
+                    id="year"
+                    name="year"
+                    value={formData.year}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="admission">Admission Inquiry</option>
-                    <option value="program">Program Information</option>
-                    <option value="placement">Placement Support</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="other">Other</option>
+                    <option disabled value="">
+                      Select your year
+                    </option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="Graduate">Graduate</option>
                   </select>
-                </div> */}
+                </div>
+
+                {/* Branch of Study */}
+                <div>
+                  <label
+                    htmlFor="branch"
+                    className="block text-sm font-semibold text-foreground mb-2"
+                  >
+                    Course
+                  </label>
+                  <select
+                    id="branch"
+                    name="branch"
+                    value={formData.branch}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                  >
+                    <option disabled value="">
+                      Select your course
+                    </option>
+                    <option value="ME">ME</option>
+                    <option value="XE">XE</option>
+                    <option value="PI">PI</option>
+                    <option value="ME+XE">ME+XE</option>
+                    <option value="ME+PI">ME+PI</option>
+                    <option value="PI+XE">PI+XE</option>
+                  </select>
+                </div>
 
                 {/* Message */}
-                <div>
+                {/* <div>
                   <label
                     htmlFor="message"
                     className="block text-sm font-semibold text-foreground mb-2"
@@ -190,7 +242,7 @@ export default function ContactPage() {
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground resize-none"
                     placeholder="Tell us more about your inquiry..."
                   ></textarea>
-                </div>
+                </div> */}
 
                 {/* Submit Button */}
                 <button

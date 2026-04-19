@@ -38,8 +38,10 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-12">Success from Our Students</h2>
+      <div className="max-w-6xl mx-auto px-4 mt-10 text-center">
+        <h2 className="text-4xl font-bold mb-12 text-primary">
+          Success from Our Students
+        </h2>
 
         {/* Slider */}
         <div
@@ -71,7 +73,7 @@ export function Testimonials() {
                   alt={`testimonial-${index}`}
                   width={600}
                   height={400}
-                  className="object-contain max-h-[90%] rounded-xl width-auto"
+                  className="object-contain max-h-[90%] rounded-xl"
                 />
               </div>
             </div>

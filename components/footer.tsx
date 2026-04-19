@@ -5,7 +5,7 @@ import {
   Mail,
   Phone,
   MapPin,
-  Linkedin,
+  Youtube,
   Twitter,
   Facebook,
   Instagram,
@@ -15,7 +15,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-white">
+    <footer id="footer" className="bg-foreground text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid gap-5 md:grid-cols-3 justify-between mb-8">
           {/* Company Info */}
@@ -26,11 +26,23 @@ export function Footer() {
               coaching.
             </p>
             <div className="flex gap-4">
-              <button className="hover:text-accent transition-colors">
-                <Linkedin className="w-5 h-5" />
+              <button className="hover:text-accent transition-colors cursor-pointer">
+                <a
+                  href="https://www.youtube.com/@KICEEngineeringAcademy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Youtube className="w-8 h-8" />
+                </a>
               </button>
-              <button className="hover:text-accent transition-colors">
-                <Instagram className="w-5 h-5" />
+              <button className="hover:text-accent transition-colors cursor-pointer">
+                <a
+                  href="https://www.instagram.com/kiceengineeringacademy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
               </button>
             </div>
           </div>
@@ -40,14 +52,20 @@ export function Footer() {
             <h4 className="font-semibold mb-4 text-lg">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <button className="text-white/80 hover:text-accent transition-colors">
+                <a
+                  href="/#about"
+                  className="text-white/80 hover:text-accent transition-colors cursor-pointer"
+                >
                   About Us
-                </button>
+                </a>
               </li>
               <li>
-                <button className="text-white/80 hover:text-accent transition-colors">
-                  Our Trainers
-                </button>
+                <Link
+                  href="/#testimonials"
+                  className="text-white/80 hover:text-accent transition-colors cursor-pointer"
+                >
+                  Testimonials
+                </Link>
               </li>
               {/* <li>
                 <button className="text-white/80 hover:text-accent transition-colors">

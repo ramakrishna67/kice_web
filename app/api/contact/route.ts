@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, phone, message } = body;
+    const { name, email, phone, college, year, branch } = body;
 
     // Send Telegram message
     await fetch(
@@ -20,9 +20,9 @@ export async function POST(req: Request) {
 👤 Name: ${name}
 📧 Email: ${email}
 📞 Phone: ${phone}
-
-📝 Message:
-${message}`,
+🏫 College: ${college}
+🎓 Year: ${year}
+📚 Course: ${branch}`,
         }),
       },
     );

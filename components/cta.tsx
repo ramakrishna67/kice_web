@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 
 export function CTA() {
   return (
-    <section className="py-20 bg-linear-to-r from-primary to-primary/80">
+    <section id="cta" className="py-20 bg-primary/20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl font-bold text-white mb-6">
+        <h2 className="text-4xl font-bold text-primary mb-6">
           Ready to Transform Your Career?
         </h2>
-        <p className="text-xl text-white/90 mb-8 leading-relaxed text-balance">
+        <p className="text-xl text-gray-600 mb-8 leading-relaxed text-balance">
           Join our next batch of students and start your journey. <br />
           Limited seats available!
         </p>
