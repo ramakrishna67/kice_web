@@ -9,8 +9,8 @@ export async function DELETE(req: Request,
         const { id } = await context.params;
         const client = await clientPromise;
         const db = client.db("kice");
-        
-        await db.collection("notifications").deleteOne({ id: id });
+
+        await db.collection("notifications").deleteOne({ _id: id });
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Failed to delete notification:", error);
