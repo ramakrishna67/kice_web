@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import Image from "next/image";
+import { useAuth } from "@/contexts/auth-context";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -73,6 +75,8 @@ export function Navigation() {
     }
   };
 
+  const dashboardHref = user?.role === "admin" ? "/admin" : "/student";
+
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,13 +111,6 @@ export function Navigation() {
             >
               About
             </Link>
-            {/* <Link
-              href="/#trainers"
-              onClick={(e) => handleLinkClick(e, "/#trainers")}
-              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
-            >
-              Trainers
-            </Link> */}
             <Link
               href="/#testimonials"
               onClick={(e) => handleLinkClick(e, "/#testimonials")}
@@ -128,6 +125,30 @@ export function Navigation() {
             >
               Contact
             </Link>
+            {user ? (
+              <>
+                <Link
+                  href={dashboardHref}
+                  className="px-6 py-2 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition-opacity font-medium cursor-pointer"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={logout}
+                  className="flex items-center gap-1.5 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="px-6 py-2 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition-opacity font-medium cursor-pointer"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -150,13 +171,6 @@ export function Navigation() {
             >
               About
             </Link>
-            {/* <Link
-              href="/#trainers"
-              onClick={(e) => handleLinkClick(e, "/#trainers")}
-              className="text-foreground hover:text-primary text-left py-2 cursor-pointer"
-            >
-              Trainers
-            </Link> */}
             <Link
               href="/#testimonials"
               onClick={(e) => handleLinkClick(e, "/#testimonials")}
@@ -171,6 +185,32 @@ export function Navigation() {
             >
               Contact
             </Link>
+            {user ? (
+              <>
+                <Link
+                  href={dashboardHref}
+                  onClick={() => setIsOpen(false)}
+                  className="px-6 py-2 bg-accent text-accent-foreground rounded-lg text-left font-medium cursor-pointer"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => { setIsOpen(false); logout(); }}
+                  className="flex items-center gap-1.5 px-6 py-2 text-red-600 hover:bg-red-50 rounded-lg text-left font-medium cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="px-6 py-2 bg-accent text-accent-foreground rounded-lg text-left font-medium cursor-pointer"
+              >
+                Login
+              </Link>
+            )}
           </div>
         )}
       </div>
