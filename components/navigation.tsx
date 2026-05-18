@@ -213,6 +213,7 @@ export function Navigation() {
         )}
         */}
       </div>
+      </div>
     </nav>
   );
 }
