@@ -90,7 +90,7 @@ export function Navigation() {
               height={50}
               className="mb-1 height-auto"
             />
-            <div className="flex flex-col gap-0 pt-2 md:pt-0 leading-tight">
+            <div className="flex flex-col gap-0 pt-4 md:pt-0 leading-tight">
               <Link
                 href="/"
                 className="sm:text-3xl text-md font-bold text-primary"
@@ -151,17 +151,15 @@ export function Navigation() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? (
-              <X className="w-6 h-6 text-foreground cursor-pointer" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground cursor-pointer" />
-            )}
-          </button>
-        </div>
+        {/*
+        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? (
+            <X className="w-6 h-6 text-foreground cursor-pointer" />
+          ) : (
+            <Menu className="w-6 h-6 text-foreground cursor-pointer" />
+          )}
+        </button>
 
-        {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden pb-4 flex flex-col gap-4">
             <Link
@@ -213,6 +211,7 @@ export function Navigation() {
             )}
           </div>
         )}
+        */}
       </div>
     </nav>
   );

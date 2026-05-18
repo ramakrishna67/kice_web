@@ -38,7 +38,7 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 mt-10 text-center">
+      <div className="max-w-6xl mx-auto px-4 md:mt-10 text-center">
         <h2 className="text-4xl font-bold mb-12 text-primary">
           Success from Our Students
         </h2>
@@ -52,11 +52,10 @@ export function Testimonials() {
           {images.map((img, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-1000 ${
-                index === current
+              className={`absolute inset-0 transition-all duration-1000 ${index === current
                   ? "opacity-100 scale-100"
                   : "opacity-0 scale-105"
-              }`}
+                }`}
             >
               {/* Blurred Background */}
               {/* <Image
@@ -102,9 +101,8 @@ export function Testimonials() {
             <div
               key={index}
               onClick={() => setCurrent(index)}
-              className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${
-                current === index ? "w-8 bg-black" : "w-3 bg-gray-300"
-              }`}
+              className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${current === index ? "w-8 bg-black" : "w-3 bg-gray-300"
+                }`}
             />
           ))}
         </div>
