@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { useNotifications } from "@/contexts/notifications-context";
 import { useStudents } from "@/contexts/students-context";
 import { useMaterials } from "@/contexts/materials-context";
+import { useSchedule } from "@/contexts/schedules-context";
 import Image from "next/image";
 import {
   Users,
@@ -19,8 +20,13 @@ import {
   Info,
   UserPlus,
   FilePlus,
+  Calendar,
 } from "lucide-react";
-import { AddStudentModal, AddMaterialModal } from "@/components/admin-modals";
+import {
+  AddStudentModal,
+  AddMaterialModal,
+  ScheduleModal,
+} from "@/components/admin-modals";
 import {
   ManageStudentsModal,
   ManageMaterialsModal,
@@ -49,6 +55,8 @@ export default function AdminDashboard() {
   const { students, addStudent, updateStudent, deleteStudent } = useStudents();
   const { materials, addMaterial, updateMaterial, deleteMaterial } =
     useMaterials();
+  const { addSchedule } = useSchedule();
+  const { schedules } = useSchedule();
 
   // Notification form
   const [title, setTitle] = useState("");
@@ -62,6 +70,9 @@ export default function AdminDashboard() {
   const [showAddMaterial, setShowAddMaterial] = useState(false);
   const [showManageStudents, setShowManageStudents] = useState(false);
   const [showManageMaterials, setShowManageMaterials] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState(1);
+  const weeklySchedules = schedules.filter((s) => s.week === selectedWeek);
 
   const handlePost = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -151,6 +162,12 @@ export default function AdminDashboard() {
                 className="flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
               >
                 <FilePlus className="w-4 h-4" /> Add Material
+              </button>
+              <button
+                onClick={() => setShowSchedule(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
+              >
+                <Calendar className="w-4 h-4" /> Weekly Schedule
               </button>
             </div>
           </div>
@@ -304,6 +321,89 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+        <div className="w-full mt-6">
+          <div className="bg-white rounded-2xl border border-border shadow-sm">
+            <div className="p-5 pb-3">
+              <h3 className="font-semibold text-foreground flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-accent" /> Weekly Schedules
+              </h3>
+            </div>
+            {/* Week Selector */}
+            <div className="px-5 flex gap-3 flex-wrap mb-5">
+              {[...new Set(schedules.map((s) => s.week))]
+                .sort((a, b) => a - b)
+                .map((week) => (
+                  <button
+                    key={week}
+                    onClick={() => setSelectedWeek(week)}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                      selectedWeek === week
+                        ? "bg-primary text-white"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    }`}
+                  >
+                    Week {week}
+                  </button>
+                ))}
+            </div>
+
+            {/* Schedule Table */}
+            <div className="overflow-x-auto px-5 pb-5">
+              <table className="w-full border-collapse overflow-hidden rounded-xl">
+                <thead>
+                  <tr className="bg-primary text-white">
+                    <th className="p-3 text-left text-sm font-semibold">Day</th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Subject
+                    </th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Topic
+                    </th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Time
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {[
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ].map((day) => {
+                    const schedule = weeklySchedules.find((s) => s.day === day);
+
+                    return (
+                      <tr
+                        key={day}
+                        className="border-b border-border hover:bg-gray-50"
+                      >
+                        <td className="p-3 font-medium text-sm">{day}</td>
+
+                        <td className="p-3 text-sm">
+                          {schedule?.subject || "-"}
+                        </td>
+
+                        <td className="p-3 text-sm">
+                          {schedule?.topic || "-"}
+                        </td>
+
+                        <td className="p-3 text-sm">{schedule?.time || "-"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
         {/* Quick Actions */}
         <div className="mt-8 grid grid-cols-2 gap-4">
@@ -348,6 +448,11 @@ export default function AdminDashboard() {
         materials={materials}
         onUpdate={updateMaterial}
         onDelete={deleteMaterial}
+      />
+      <ScheduleModal
+        open={showSchedule}
+        onClose={() => setShowSchedule(false)}
+        onAdd={addSchedule}
       />
     </div>
   );

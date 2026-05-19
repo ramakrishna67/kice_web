@@ -29,6 +29,7 @@ export function AddStudentModal({
       email: email.trim(),
       phone: phone.trim(),
       password: password.trim(),
+      role: "student",
     });
     setName("");
     setEmail("");
@@ -148,8 +149,8 @@ export function AddMaterialModal({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (f) {
-      if (f.size > 4 * 1024 * 1024) {
-        setError("File must be under 4MB (localStorage limit)");
+      if (f.size > 10 * 1024 * 1024) {
+        setError("File must be under 10MB");
         return;
       }
       setFile(f);
@@ -259,6 +260,167 @@ export function AddMaterialModal({
             )}
           </button>
         </form>
+      </div>
+    </div>
+  );
+}
+
+interface ScheduleModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (schedule: any) => void;
+}
+
+export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
+  const [week, setWeek] = useState("");
+  const [date, setDate] = useState("");
+  const [day, setDay] = useState("");
+  const [subject, setSubject] = useState("");
+  const [topic, setTopic] = useState("");
+  const [time, setTime] = useState("");
+
+  if (!open) return null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    await onAdd({
+      week: week.trim(),
+      date: date.trim(),
+      day: day.trim(),
+      subject: subject.trim(),
+      topic: topic.trim(),
+      time: time.trim(),
+    });
+
+    setWeek("");
+    setDate("");
+    setDay("");
+    setSubject("");
+    setTopic("");
+    setTime("");
+    onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-5">
+          <h3 className="text-lg font-bold text-foreground">
+            Add Weekly Schedule
+          </h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-lg cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        {/* <div className="w-full h-fit flex items-center justify-center text-muted-foreground"> */}
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <div>
+            <label
+              htmlFor="week"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Week
+            </label>
+            <input
+              type="number"
+              min={1}
+              id="week"
+              placeholder="week number"
+              onChange={(e) => setWeek(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="date"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              onChange={(e) => setDate(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="day"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Day
+            </label>
+            <input
+              type="text"
+              id="day"
+              placeholder="e.g. Monday"
+              onChange={(e) => setDay(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="subject"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Subject
+            </label>
+            <input
+              type="text"
+              id="subject"
+              placeholder="e.g. Math"
+              onChange={(e) => setSubject(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="topic"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Topic
+            </label>
+            <input
+              type="text"
+              id="topic"
+              placeholder="e.g. Chapter 5 - Calculus"
+              onChange={(e) => setTopic(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="time"
+              className="block text-sm font-medium mb-1 text-foreground"
+            >
+              Time
+            </label>
+            <input
+              type="time"
+              id="time"
+              onChange={(e) => setTime(e.target.value)}
+              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full mt-4 bg-primary text-primary-foreground font-semibold py-2.5 rounded-xl hover:opacity-90 cursor-pointer text-sm"
+          >
+            Add to Schedule
+          </button>
+        </form>
+        {/* </div> */}
       </div>
     </div>
   );

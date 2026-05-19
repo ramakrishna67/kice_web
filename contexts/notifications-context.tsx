@@ -20,11 +20,15 @@ export interface Notification {
 
 interface NotificationsContextType {
   notifications: Notification[];
-  addNotification: (n: Omit<Notification, "_id" | "date" | "timestamp">) => void;
+  addNotification: (
+    n: Omit<Notification, "_id" | "date" | "timestamp">,
+  ) => void;
   deleteNotification: (id: string) => void;
 }
 
-const NotificationsContext = createContext<NotificationsContextType | undefined>(undefined);
+const NotificationsContext = createContext<
+  NotificationsContextType | undefined
+>(undefined);
 
 function formatRelativeTime(timestamp: number): string {
   const diff = Date.now() - timestamp;
@@ -45,7 +49,14 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
     const fetchNotifications = async () => {
       const res = await fetch("/api/notifications");
       const data = await res.json();
-      setNotifications(data.map((n: Notification) => ({ ...n, date: formatRelativeTime(n.timestamp) })));
+      setNotifications(
+        data
+          .sort((a: Notification, b: Notification) => b.timestamp - a.timestamp)
+          .map((n: Notification) => ({
+            ...n,
+            date: formatRelativeTime(n.timestamp),
+          })),
+      );
     };
     fetchNotifications();
   }, []);
@@ -53,7 +64,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setNotifications((prev) =>
-        prev.map((n) => ({ ...n, date: formatRelativeTime(n.timestamp) }))
+        prev.map((n) => ({ ...n, date: formatRelativeTime(n.timestamp) })),
       );
     }, 60000);
     return () => clearInterval(interval);
@@ -66,7 +77,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
         _id: crypto.randomUUID(),
         timestamp: Date.now(),
         date: "Just now",
-      }; 
+      };
       const res = await fetch("/api/notifications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,7 +87,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
         setNotifications((prev) => [newNotification, ...prev]);
       }
     },
-    []
+    [],
   );
 
   const deleteNotification = useCallback(async (id: string) => {
@@ -84,7 +95,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
       method: "DELETE",
     });
     if (res.ok) {
-      setNotifications((prev) => prev.filter((n) => n. _id !== id));
+      setNotifications((prev) => prev.filter((n) => n._id !== id));
     }
   }, []);
 
@@ -96,7 +107,11 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
 
   return (
     <NotificationsContext.Provider
-      value={{ notifications: displayNotifications, addNotification, deleteNotification }}
+      value={{
+        notifications: displayNotifications,
+        addNotification,
+        deleteNotification,
+      }}
     >
       {children}
     </NotificationsContext.Provider>
@@ -106,7 +121,9 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
 export function useNotifications() {
   const context = useContext(NotificationsContext);
   if (context === undefined) {
-    throw new Error("useNotifications must be used within a NotificationsProvider");
+    throw new Error(
+      "useNotifications must be used within a NotificationsProvider",
+    );
   }
   return context;
 }

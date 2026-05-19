@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut, LogIn } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/auth-context";
 
@@ -151,7 +151,7 @@ export function Navigation() {
             )}
           </div>
 
-        {/*
+          {/*
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? (
             <X className="w-6 h-6 text-foreground cursor-pointer" />
@@ -212,7 +212,16 @@ export function Navigation() {
           </div>
         )}
         */}
-      </div>
+          <Link
+            href="/login"
+            className="md:hidden flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-foreground rounded-lg font-medium cursor-pointer"
+          >
+            <div className="items-center justify-center flex flex-col">
+              <LogIn />
+              Login
+            </div>
+          </Link>
+        </div>
       </div>
     </nav>
   );

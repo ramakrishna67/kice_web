@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { useNotifications } from "@/contexts/notifications-context";
+import { useSchedule } from "@/contexts/schedules-context";
 import { MaterialsView } from "@/components/materials-view";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,7 +26,10 @@ import {
 export default function StudentDashboard() {
   const { user, logout } = useAuth();
   const { notifications } = useNotifications();
+  const { schedules } = useSchedule();
   const [showMaterials, setShowMaterials] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState(1);
+  const weeklySchedules = schedules.filter((s) => s.week === selectedWeek);
 
   return (
     <div className="min-h-screen bg-gray-50/50">
@@ -106,7 +110,80 @@ export default function StudentDashboard() {
                 <Calendar className="w-5 h-5 text-accent" /> Weekly Schedules
               </h3>
             </div>
-            
+            {/* Week Selector */}
+            <div className="px-5 flex gap-3 flex-wrap mb-5">
+              {[...new Set(schedules.map((s) => s.week))]
+                .sort((a, b) => a - b)
+                .map((week) => (
+                  <button
+                    key={week}
+                    onClick={() => setSelectedWeek(week)}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                      selectedWeek === week
+                        ? "bg-primary text-white"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    }`}
+                  >
+                    Week {week}
+                  </button>
+                ))}
+            </div>
+
+            {/* Schedule Table */}
+            <div className="overflow-x-auto px-5 pb-5">
+              <table className="w-full border-collapse overflow-hidden rounded-xl">
+                <thead>
+                  <tr className="bg-primary text-white">
+                    <th className="p-3 text-left text-sm font-semibold">Day</th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Subject
+                    </th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Topic
+                    </th>
+
+                    <th className="p-3 text-left text-sm font-semibold">
+                      Time
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {[
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ].map((day) => {
+                    const schedule = weeklySchedules.find((s) => s.day === day);
+
+                    return (
+                      <tr
+                        key={day}
+                        className="border-b border-border hover:bg-gray-50"
+                      >
+                        <td className="p-3 font-medium text-sm">{day}</td>
+
+                        <td className="p-3 text-sm">
+                          {schedule?.subject || "-"}
+                        </td>
+
+                        <td className="p-3 text-sm">
+                          {schedule?.topic || "-"}
+                        </td>
+
+                        <td className="p-3 text-sm">{schedule?.time || "-"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* Announcements */}
           <div className="bg-white rounded-2xl border border-border shadow-sm">
