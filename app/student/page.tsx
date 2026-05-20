@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { useNotifications } from "@/contexts/notifications-context";
 import { useSchedule } from "@/contexts/schedules-context";
@@ -28,8 +28,32 @@ export default function StudentDashboard() {
   const { notifications } = useNotifications();
   const { schedules } = useSchedule();
   const [showMaterials, setShowMaterials] = useState(false);
-  const [selectedWeek, setSelectedWeek] = useState(1);
-  const weeklySchedules = schedules.filter((s) => s.week === selectedWeek);
+  const [selectedWeek, setSelectedWeek] = useState<number | null>(null);
+  const weeklySchedules =
+    selectedWeek != null
+      ? schedules.filter((s) => s.week === selectedWeek)
+      : [];
+
+  useEffect(() => {
+    if (schedules.length === 0) return;
+
+    const today = new Date();
+
+    const todayString = today.toISOString().split("T")[0];
+
+    const currentSchedule = schedules.find((s) => s.date === todayString);
+
+    if (currentSchedule) {
+      setSelectedWeek(currentSchedule.week);
+    } else {
+      // fallback → first available week
+      const weeks = [...new Set(schedules.map((s) => s.week))].sort(
+        (a, b) => a - b,
+      );
+
+      setSelectedWeek(weeks[0]);
+    }
+  }, [schedules]);
 
   return (
     <div className="min-h-screen bg-gray-50/50">
@@ -170,14 +194,43 @@ export default function StudentDashboard() {
                         <td className="p-3 font-medium text-sm">{day}</td>
 
                         <td className="p-3 text-sm">
-                          {schedule?.subject || "-"}
+                          {schedule?.sessions.map((session, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 mb-2"
+                            >
+                              <span className="text-sm font-medium">
+                                {session.subject || "-"}
+                              </span>
+                            </div>
+                          ))}
                         </td>
 
                         <td className="p-3 text-sm">
-                          {schedule?.topic || "-"}
+                          {schedule?.sessions.map((session, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 mb-2"
+                            >
+                              <span className="text-sm font-medium">
+                                {session.topic || "-"}
+                              </span>
+                            </div>
+                          ))}
                         </td>
 
-                        <td className="p-3 text-sm">{schedule?.time || "-"}</td>
+                        <td className="p-3 text-sm">
+                          {schedule?.sessions.map((session, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 mb-2"
+                            >
+                              <span className="text-sm font-medium">
+                                {session.time || "-"}
+                              </span>
+                            </div>
+                          ))}
+                        </td>
                       </tr>
                     );
                   })}

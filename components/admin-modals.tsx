@@ -275,9 +275,34 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
   const [week, setWeek] = useState("");
   const [date, setDate] = useState("");
   const [day, setDay] = useState("");
-  const [subject, setSubject] = useState("");
-  const [topic, setTopic] = useState("");
-  const [time, setTime] = useState("");
+  const [sessions, setSessions] = useState([
+    {
+      subject: "",
+      topic: "",
+      time: "",
+    },
+  ]);
+
+  const addSession = () => {
+    setSessions((prev) => [
+      ...prev,
+      {
+        subject: "",
+        topic: "",
+        time: "",
+      },
+    ]);
+  };
+
+  const updateSession = (index: number, field: string, value: string) => {
+    const updated = [...sessions];
+    updated[index] = { ...updated[index], [field]: value };
+    setSessions(updated);
+  };
+
+  const removeSession = (index: number) => {
+    setSessions((prev) => prev.filter((_, i) => i !== index));
+  };
 
   if (!open) return null;
 
@@ -288,17 +313,19 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
       week: week.trim(),
       date: date.trim(),
       day: day.trim(),
-      subject: subject.trim(),
-      topic: topic.trim(),
-      time: time.trim(),
+      sessions,
     });
 
     setWeek("");
     setDate("");
     setDay("");
-    setSubject("");
-    setTopic("");
-    setTime("");
+    setSessions([
+      {
+        subject: "",
+        topic: "",
+        time: "",
+      },
+    ]);
     onClose();
   };
 
@@ -308,7 +335,7 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-6"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-6 max-h-[90vh] overflow-y-auto scrollbar-hide"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-5">
@@ -387,51 +414,63 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
             />
           </div>
           <div>
-            <label
-              htmlFor="subject"
-              className="block text-sm font-medium mb-1 text-foreground"
-            >
-              Subject
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              Sessions
             </label>
-            <input
-              type="text"
-              id="subject"
-              placeholder="e.g. Math"
-              onChange={(e) => setSubject(e.target.value)}
-              required
-              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="topic"
-              className="block text-sm font-medium mb-1 text-foreground"
+            {sessions.map((session, index) => (
+              <div
+                key={index}
+                className="border border-border rounded-xl p-4 mb-3 space-y-3"
+              >
+                <div className="flex justify-between">
+                  <h4 className="font-medium text-sm">Session {index + 1}</h4>
+                  {sessions.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeSession(index)}
+                      className="text-red-500 hover:text-red-700 text-sm font-medium cursor-pointer"
+                    >
+                      X
+                    </button>
+                  )}
+                </div>
+                <input
+                  type="text"
+                  placeholder="Subject (e.g. Math)"
+                  value={session.subject}
+                  onChange={(e) =>
+                    updateSession(index, "subject", e.target.value)
+                  }
+                  required
+                  className="w-full border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <input
+                  type="text"
+                  placeholder="Topic (e.g. Chapter 5 - Calculus)"
+                  value={session.topic}
+                  onChange={(e) =>
+                    updateSession(index, "topic", e.target.value)
+                  }
+                  required
+                  className="w-full border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <input
+                  type="text"
+                  placeholder="Time (e.g. 10:00 AM - 11:00 AM)"
+                  value={session.time}
+                  onChange={(e) => updateSession(index, "time", e.target.value)}
+                  required
+                  className="w-full border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addSession}
+              className="w-full mt-2 bg-secondary text-secondary-foreground font-semibold py-2 rounded-xl hover:opacity-90 cursor-pointer text-sm"
             >
-              Topic
-            </label>
-            <input
-              type="text"
-              id="topic"
-              placeholder="e.g. Chapter 5 - Calculus"
-              onChange={(e) => setTopic(e.target.value)}
-              required
-              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="time"
-              className="block text-sm font-medium mb-1 text-foreground"
-            >
-              Time
-            </label>
-            <input
-              type="time"
-              id="time"
-              onChange={(e) => setTime(e.target.value)}
-              required
-              className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-            />
+              Add Another Session
+            </button>
           </div>
           <button
             type="submit"

@@ -14,9 +14,11 @@ export interface Schedule {
   week: number;
   date: string;
   day: string;
-  subject: string;
-  topic: string;
-  time: string;
+  sessions: {
+    subject: string;
+    topic: string;
+    time: string;
+  }[];
 }
 
 interface ScheduleContextType {

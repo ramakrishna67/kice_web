@@ -22,6 +22,8 @@ export async function POST(req: Request) {
     await db.collection("schedules").updateOne(
       {
         week: body.week,
+        date: body.date,
+        day: body.day,
       },
       {
         $set: body,
