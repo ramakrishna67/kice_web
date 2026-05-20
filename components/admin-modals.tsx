@@ -337,6 +337,7 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
               id="week"
               placeholder="week number"
               onChange={(e) => setWeek(e.target.value)}
+              required
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
@@ -350,7 +351,23 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
             <input
               type="date"
               id="date"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => {
+                const selectedDate = e.target.value;
+                setDate(selectedDate);
+
+                const days = [
+                  "Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                ];
+                const dayOfWeek = days[new Date(selectedDate).getDay()];
+                setDay(dayOfWeek);
+              }}
+              required
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
@@ -364,8 +381,8 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
             <input
               type="text"
               id="day"
-              placeholder="e.g. Monday"
-              onChange={(e) => setDay(e.target.value)}
+              value={day}
+              readOnly
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
@@ -381,6 +398,7 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
               id="subject"
               placeholder="e.g. Math"
               onChange={(e) => setSubject(e.target.value)}
+              required
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
@@ -396,6 +414,7 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
               id="topic"
               placeholder="e.g. Chapter 5 - Calculus"
               onChange={(e) => setTopic(e.target.value)}
+              required
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
@@ -410,6 +429,7 @@ export function ScheduleModal({ open, onClose, onAdd }: ScheduleModalProps) {
               type="time"
               id="time"
               onChange={(e) => setTime(e.target.value)}
+              required
               className="border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
