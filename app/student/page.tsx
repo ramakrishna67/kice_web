@@ -165,7 +165,7 @@ export default function StudentDashboard() {
             </div>
 
             {/* Schedule Table */}
-            <div className="overflow-x-auto px-5 pb-5">
+            <div className="overflow-x-auto px-5 pb-5 hidden md:block">
               <table className="w-full border-collapse overflow-hidden rounded-xl">
                 <thead>
                   <tr className="bg-primary text-white">
@@ -249,7 +249,7 @@ export default function StudentDashboard() {
               </table>
             </div>
             {/* Mobile Schedule View */}
-            <div className="space-y-5 md:hidden">
+            <div className="space-y-5 md:hidden m-4">
               {weeklySchedules.map((schedule) => (
                 <div
                   key={schedule._id}

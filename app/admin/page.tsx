@@ -170,12 +170,12 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
         {/* Welcome Banner with action buttons */}
         <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-primary via-primary/90 to-accent/80 text-white p-5 sm:p-8 mb-8">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-1/3 w-48 h-48 bg-white/5 rounded-full translate-y-1/2" />
-          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
               <p className="text-white/70 text-sm mb-1">Admin Dashboard</p>
               <h2 className="text-2xl sm:text-3xl font-bold mb-1">
@@ -185,7 +185,7 @@ export default function AdminDashboard() {
                 Manage students, materials, and notifications.
               </p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 lg:w-auto">
               <button
                 onClick={() => setShowAddStudent(true)}
                 className="flex items-center gap-2 p-4 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
 
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Post Notification Form */}
-          <div className="lg:col-span-3 bg-white rounded-2xl border border-border shadow-sm">
+          <div className="lg:col-span-3 bg-white rounded-2xl border border-border shadow-sm w-full overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Send className="w-5 h-5 text-primary" /> Post Notification
@@ -266,7 +266,7 @@ export default function AdminDashboard() {
                 <label className="block text-sm font-medium text-foreground mb-1">
                   Type
                 </label>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   {typeOptions.map((opt) => (
                     <button
                       key={opt.value}
@@ -301,7 +301,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Posted Notifications */}
-          <div className="lg:col-span-2 bg-white rounded-2xl border border-border shadow-sm">
+          <div className="lg:col-span-2 bg-white rounded-2xl border border-border shadow-sm w-full overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Bell className="w-5 h-5 text-accent" /> Posted Notifications
@@ -467,7 +467,7 @@ export default function AdminDashboard() {
               </table>
             </div>
             {/* Mobile Schedule */}
-            <div className="space-y-5 md:hidden">
+            <div className="space-y-5 md:hidden px-4 pb-4">
               {weeklySchedules.map((schedule) => (
                 <div
                   key={schedule._id}
