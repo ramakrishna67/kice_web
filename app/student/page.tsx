@@ -137,9 +137,9 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
           {/* Weekly Schedules */}
-          <div className="bg-white rounded-2xl border border-border shadow-sm">
+          <div className="lg:col-span-7 bg-white rounded-2xl border border-border shadow-sm h-146 flex flex-col overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-accent" /> Weekly Schedules
@@ -165,7 +165,7 @@ export default function StudentDashboard() {
             </div>
 
             {/* Schedule Table */}
-            <div className="overflow-x-auto px-5 pb-5 hidden md:block">
+            <div className="flex-1 overflow-y-scroll scrollbar-hide overflow-x-auto px-5 pb-5 hidden md:block">
               <table className="w-full border-collapse overflow-hidden rounded-xl">
                 <thead>
                   <tr className="bg-primary text-white">
@@ -249,7 +249,7 @@ export default function StudentDashboard() {
               </table>
             </div>
             {/* Mobile Schedule View */}
-            <div className="space-y-5 md:hidden m-4">
+            <div className="space-y-5 md:hidden m-4 overflow-y-scroll flex-1 scrollbar-hide ">
               {weeklySchedules.map((schedule) => (
                 <div
                   key={schedule._id}
@@ -292,13 +292,13 @@ export default function StudentDashboard() {
             </div>
           </div>
           {/* Announcements */}
-          <div className="bg-white rounded-2xl border border-border shadow-sm">
+          <div className="lg:col-span-3 bg-white rounded-2xl border border-border shadow-sm h-146 flex flex-col overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Bell className="w-5 h-5 text-accent" /> Announcements
               </h3>
             </div>
-            <div className="px-5 pb-5 space-y-3">
+            <div className="px-5 pb-5 space-y-3 overflow-y-scroll flex-1 scrollbar-hide">
               {notifications.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-6">
                   No announcements yet.
