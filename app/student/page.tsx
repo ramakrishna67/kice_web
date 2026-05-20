@@ -29,9 +29,20 @@ export default function StudentDashboard() {
   const { schedules } = useSchedule();
   const [showMaterials, setShowMaterials] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState<number | null>(null);
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
   const weeklySchedules =
     selectedWeek != null
-      ? schedules.filter((s) => s.week === selectedWeek)
+      ? schedules
+          .filter((s) => s.week === selectedWeek)
+          .sort((a, b) => daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day))
       : [];
 
   useEffect(() => {
@@ -236,6 +247,48 @@ export default function StudentDashboard() {
                   })}
                 </tbody>
               </table>
+            </div>
+            {/* Mobile Schedule View */}
+            <div className="space-y-5 md:hidden">
+              {weeklySchedules.map((schedule) => (
+                <div
+                  key={schedule._id}
+                  className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden"
+                >
+                  {/* Day Header */}
+                  <div className="bg-primary text-white px-4 py-3">
+                    <h3 className="font-semibold text-lg">{schedule.day}</h3>
+                  </div>
+
+                  {/* Sessions */}
+                  <div className="p-4 space-y-4">
+                    {schedule.sessions.map((session, index) => (
+                      <div
+                        key={index}
+                        className="rounded-xl border border-border p-4 bg-gray-50"
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded-full">
+                            Session {index + 1}
+                          </span>
+
+                          <span className="text-sm font-semibold text-primary">
+                            {session.time}
+                          </span>
+                        </div>
+
+                        <h4 className="font-semibold text-base text-foreground">
+                          {session.subject}
+                        </h4>
+
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          {session.topic}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           {/* Announcements */}

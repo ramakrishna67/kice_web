@@ -72,9 +72,20 @@ export default function AdminDashboard() {
   const [showManageMaterials, setShowManageMaterials] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState(1);
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
   const weeklySchedules =
     selectedWeek != null
-      ? schedules.filter((s) => s.week === selectedWeek)
+      ? schedules
+          .filter((s) => s.week === selectedWeek)
+          .sort((a, b) => daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day))
       : [];
 
   useEffect(() => {
@@ -161,35 +172,35 @@ export default function AdminDashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Banner with action buttons */}
-        <div className="relative overflow-hidden rounded-2xl bg-linear-to-r from-primary via-primary/90 to-accent/80 text-white p-6 sm:p-8 mb-8">
+        <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-primary via-primary/90 to-accent/80 text-white p-5 sm:p-8 mb-8">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-1/3 w-48 h-48 bg-white/5 rounded-full translate-y-1/2" />
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <p className="text-white/70 text-sm mb-1">Admin Dashboard</p>
               <h2 className="text-2xl sm:text-3xl font-bold mb-1">
-                Welcome, {user?.name} 👋
+                Welcome, {user?.name}
               </h2>
               <p className="text-white/80 text-sm">
                 Manage students, materials, and notifications.
               </p>
             </div>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
               <button
                 onClick={() => setShowAddStudent(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
+                className="flex items-center gap-2 p-4 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
               >
                 <UserPlus className="w-4 h-4" /> Add Student
               </button>
               <button
                 onClick={() => setShowAddMaterial(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
+                className="flex items-center gap-2 p-4 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
               >
                 <FilePlus className="w-4 h-4" /> Add Material
               </button>
               <button
                 onClick={() => setShowSchedule(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
+                className="flex items-center gap-2 p-3 bg-white/15 hover:bg-white/25 rounded-xl text-sm font-medium transition-colors cursor-pointer backdrop-blur-sm"
               >
                 <Calendar className="w-4 h-4" /> Weekly Schedule
               </button>
@@ -372,7 +383,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Schedule Table */}
-            <div className="overflow-x-auto px-5 pb-5">
+            <div className="overflow-x-auto px-5 pb-5 hidden md:block">
               <table className="w-full border-collapse overflow-hidden rounded-xl">
                 <thead>
                   <tr className="bg-primary text-white">
@@ -430,7 +441,7 @@ export default function AdminDashboard() {
                               key={index}
                               className="flex items-center gap-2 mb-2"
                             >
-                              <span className="text-sm font-medium">
+                              <span className="text-xs md:text-sm font-medium">
                                 {session.topic || "-"}
                               </span>
                             </div>
@@ -443,7 +454,7 @@ export default function AdminDashboard() {
                               key={index}
                               className="flex items-center gap-2 mb-2"
                             >
-                              <span className="text-sm font-medium">
+                              <span className="text-xs font-medium">
                                 {session.time || "-"}
                               </span>
                             </div>
@@ -454,6 +465,48 @@ export default function AdminDashboard() {
                   })}
                 </tbody>
               </table>
+            </div>
+            {/* Mobile Schedule */}
+            <div className="space-y-5 md:hidden">
+              {weeklySchedules.map((schedule) => (
+                <div
+                  key={schedule._id}
+                  className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden"
+                >
+                  {/* Day Header */}
+                  <div className="bg-primary text-white px-4 py-3">
+                    <h3 className="font-semibold text-lg">{schedule.day}</h3>
+                  </div>
+
+                  {/* Sessions */}
+                  <div className="p-4 space-y-4">
+                    {schedule.sessions.map((session, index) => (
+                      <div
+                        key={index}
+                        className="rounded-xl border border-border p-4 bg-gray-50"
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded-full">
+                            Session {index + 1}
+                          </span>
+
+                          <span className="text-sm font-semibold text-primary">
+                            {session.time}
+                          </span>
+                        </div>
+
+                        <h4 className="font-semibold text-base text-foreground">
+                          {session.subject}
+                        </h4>
+
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          {session.topic}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
