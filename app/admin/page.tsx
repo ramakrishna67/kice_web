@@ -336,7 +336,7 @@ export default function AdminDashboard() {
                       <p className="text-xs font-medium text-foreground">
                         {n.title}
                       </p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2">
+                      <p className="text-xs text-muted-foreground mt-1 wrap-break-word whitespace-pre-wrap leading-relaxed">
                         {n.description}
                       </p>
                       <p className="text-[10px] text-muted-foreground mt-1">

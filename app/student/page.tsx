@@ -137,9 +137,9 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-10 gap-6 items-start">
           {/* Weekly Schedules */}
-          <div className="lg:col-span-7 bg-white rounded-2xl border border-border shadow-sm h-146 flex flex-col overflow-hidden">
+          <div className="lg:col-span-7 bg-white rounded-2xl border border-border shadow-sm min-h-150 flex flex-col overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-accent" /> Weekly Schedules
@@ -165,7 +165,7 @@ export default function StudentDashboard() {
             </div>
 
             {/* Schedule Table */}
-            <div className="flex-1 overflow-y-scroll scrollbar-hide overflow-x-auto px-5 pb-5 hidden md:block">
+            <div className="flex-1 overflow-y-scroll scrollbar-hide overflow-x-auto px-5 pb-5 hidden xl:block">
               <table className="w-full border-collapse overflow-hidden rounded-xl">
                 <thead>
                   <tr className="bg-primary text-white">
@@ -249,7 +249,7 @@ export default function StudentDashboard() {
               </table>
             </div>
             {/* Mobile Schedule View */}
-            <div className="space-y-5 md:hidden m-4 overflow-y-scroll flex-1 scrollbar-hide ">
+            <div className="space-y-5 xl:hidden m-4 overflow-y-scroll flex-1 scrollbar-hide ">
               {weeklySchedules.map((schedule) => (
                 <div
                   key={schedule._id}
@@ -292,7 +292,7 @@ export default function StudentDashboard() {
             </div>
           </div>
           {/* Announcements */}
-          <div className="lg:col-span-3 bg-white rounded-2xl border border-border shadow-sm h-146 flex flex-col overflow-hidden">
+          <div className="lg:col-span-3 bg-white rounded-2xl border border-border shadow-sm min-h-150 flex flex-col overflow-hidden">
             <div className="p-5 pb-3">
               <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Bell className="w-5 h-5 text-accent" /> Announcements
@@ -325,7 +325,7 @@ export default function StudentDashboard() {
                         <p className="font-medium text-foreground text-sm">
                           {a.title}
                         </p>
-                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                        <p className="text-xs text-muted-foreground mt-1 wrap-break-word whitespace-pre-wrap leading-relaxed">
                           {a.description}
                         </p>
                         <p className="text-[10px] text-muted-foreground mt-1.5">
