@@ -236,7 +236,7 @@ export function AddMaterialModal({
                   : "Click to select a file (PDF, images, etc.)"}
               </span>
               <span className="text-[10px] text-muted-foreground mt-1">
-                Max 4MB
+                Max 10 MB
               </span>
               <input
                 type="file"

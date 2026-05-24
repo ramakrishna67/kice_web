@@ -12,6 +12,7 @@ interface MaterialsViewProps {
 export function MaterialsView({ open, onClose }: MaterialsViewProps) {
   const { materials } = useMaterials();
   const [viewing, setViewing] = useState<Material | null>(null);
+  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
 
   if (!open) return null;
 
@@ -26,6 +27,21 @@ export function MaterialsView({ open, onClose }: MaterialsViewProps) {
       return <ImageIcon className="w-5 h-5 text-green-500" />;
     return <FileText className="w-5 h-5 text-blue-500" />;
   };
+
+  const groupedMaterials = materials.reduce(
+    (acc, material) => {
+      const key = material.name.trim() || "UnCategorized";
+
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+
+      acc[key].push(material);
+
+      return acc;
+    },
+    {} as Record<string, Material[]>,
+  );
 
   // File viewer modal
   if (viewing) {
@@ -42,8 +58,8 @@ export function MaterialsView({ open, onClose }: MaterialsViewProps) {
           >
             <ArrowLeft className="w-4 h-4" /> Back to Materials
           </button>
-          <span className="text-white font-medium text-sm truncate max-w-xs">
-            {viewing.name}
+          <span className="text-white font-medium text-sm truncate max-w-full ">
+            {viewing.fileName}
           </span>
           <button
             onClick={() => {
@@ -66,12 +82,12 @@ export function MaterialsView({ open, onClose }: MaterialsViewProps) {
               src={`${viewing.fileData}#toolbar=0&navpanes=0&scrollbar=0`}
               className="w-full h-full rounded-lg pointer-events-auto"
               style={{ maxWidth: "900px" }}
-              title={viewing.name}
+              title={viewing.fileName}
             />
           ) : viewing.fileType.startsWith("image/") ? (
             <img
               src={viewing.fileData}
-              alt={viewing.name}
+              alt={viewing.fileName}
               className="max-w-full max-h-full object-contain rounded-lg"
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
@@ -95,7 +111,7 @@ export function MaterialsView({ open, onClose }: MaterialsViewProps) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl mx-4 max-h-[80vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 border-b border-border">
@@ -115,40 +131,82 @@ export function MaterialsView({ open, onClose }: MaterialsViewProps) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="overflow-y-auto flex-1 p-5 space-y-3">
-          {materials.length === 0 ? (
-            <div className="text-center py-12">
-              <BookOpenIcon className="w-12 h-12 mx-auto text-muted-foreground/30 mb-3" />
-              <p className="text-sm text-muted-foreground">
-                No materials uploaded yet.
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Check back later!
-              </p>
-            </div>
+        <div className="overflow-y-auto flex-1 p-5">
+          {selectedFolder === null ? (
+            <>
+              {/* Folder View */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {Object.keys(groupedMaterials).map((folder) => (
+                  <button
+                    key={folder}
+                    onClick={() => setSelectedFolder(folder)}
+                    className="w-full p-5 rounded-2xl bg-gray-50 border border-border hover:bg-gray-100 hover:border-primary/20 transition-all text-left group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <BookOpenIcon className="w-6 h-6 text-primary" />
+                      </div>
+
+                      <div>
+                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {folder}
+                        </h3>
+
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {groupedMaterials[folder].length} material
+                          {groupedMaterials[folder].length !== 1 && "s"}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
           ) : (
-            materials.map((m) => (
+            <>
+              {/* Back Button */}
               <button
-                key={m._id}
-                onClick={() => setViewing(m)}
-                className="w-full flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-border hover:bg-gray-100 hover:border-primary/20 transition-all cursor-pointer text-left group"
+                onClick={() => setSelectedFolder(null)}
+                className="flex items-center gap-2 text-primary text-sm font-medium mb-5 hover:underline cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-lg bg-white border border-border flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
-                  {getIcon(m.fileType)}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm text-foreground truncate group-hover:text-primary transition-colors">
-                    {m.name}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">
-                    {formatSize(m.size)} · Uploaded {m.uploadDate}
-                  </p>
-                </div>
-                <span className="text-[10px] text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                  View →
-                </span>
+                <ArrowLeft className="w-4 h-4" />
+                Back to Folders
               </button>
-            ))
+
+              {/* Folder Title */}
+              <h2 className="text-xl font-bold text-foreground mb-5">
+                {selectedFolder}
+              </h2>
+
+              {/* Files */}
+              <div className="space-y-3">
+                {(groupedMaterials[selectedFolder!] || []).map((m) => (
+                  <button
+                    key={m._id}
+                    onClick={() => setViewing(m)}
+                    className="w-full flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-border hover:bg-gray-100 hover:border-primary/20 transition-all cursor-pointer text-left group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-white border border-border flex items-center justify-center shrink-0">
+                      {getIcon(m.fileType)}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-foreground truncate group-hover:text-primary transition-colors wrap-break-word whitespace-pre-wrap leading-relaxed">
+                        {m.fileName}
+                      </p>
+
+                      <p className="text-[10px] text-muted-foreground">
+                        {formatSize(m.size)} · Uploaded {m.uploadDate}
+                      </p>
+                    </div>
+
+                    <span className="text-[10px] text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                      View →
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
