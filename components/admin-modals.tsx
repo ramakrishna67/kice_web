@@ -213,7 +213,7 @@ export function AddMaterialModal({
           )}
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">
-              Material Name
+              Folder Name
             </label>
             <input
               type="text"
