@@ -221,7 +221,7 @@ export function AddMaterialModal({
               onChange={(e) => setName(e.target.value)}
               required
               className="w-full border border-border bg-gray-50/50 py-2.5 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              placeholder="e.g. Chapter 5 - Calculus"
+              placeholder="e.g. Casting"
             />
           </div>
           <div>
